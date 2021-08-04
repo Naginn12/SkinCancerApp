@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:Controls="clr-namespace:SkinCancerApp"
+             x:Class="SkinCancerApp.Views.login.LoginPage.LoginPage" NavigationPage.HasNavigationBar="false" Background="#ffffff">
+
+
+    <Grid Padding="10" Margin="0,10,0,0" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="WEL COME TO SKIN CANCER DIAGNOSIS"  TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" VerticalOptions="CenterAndExpand" FontSize="18"/>
+        <Image Source="skincancer2.png" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="200" WidthRequest="200"/>
+
+        <!--<Grid Grid.Row="2" Padding="10" Margin="0,10,0,0" >
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <Label Text="EMAIL" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" FontAttributes="Bold"/>
+
+                <Frame Grid.Row="1" BackgroundColor="#f5f5f0" CornerRadius="20"  HeightRequest="35" WidthRequest="350" BorderColor="Black" >
+                    <Controls:XEntry x:Name="Entryemail"   Placeholder="Enter your Email" FontSize="18"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                </Frame>
+
+                <Label Text="PASSWORD" Grid.Row="2" TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                
+                <Frame Grid.Row="3" BackgroundColor="#f5f5f0" CornerRadius="20"  HeightRequest="40" WidthRequest="350" BorderColor="Black">
+                    <Controls:XEntry x:Name="EntryPassword " Placeholder="Enter your Password" FontSize="18" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                </Frame>
+
+
+
+            </Grid>
+        </Grid>-->
+
+        <Grid Grid.Row="2" Margin="0,30,0,0">
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="EMAIL" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="16" FontAttributes="Bold"/>
+
+                <yummy:PancakeView BackgroundColor="#f5f5f0" CornerRadius="30" Grid.Row="1"  HeightRequest="50" >
+                    <Grid ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.9*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="emaill.png" HorizontalOptions="End" VerticalOptions="Center" HeightRequest="18" WidthRequest="18"/>
+                        <Controls:XEntry x:Name="Entryemail" Text="{Binding Name}" Grid.Column="1"  Placeholder="Enter Your Email"   HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                    </Grid>
+                </yummy:PancakeView>
+
+                <Label Text="PASSWORD" Grid.Row="2" HorizontalOptions="StartAndExpand" TextColor="Black" FontSize="16" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+
+                <yummy:PancakeView Grid.Row="3" BackgroundColor="#f5f5f0" CornerRadius="30"   HeightRequest="50" >
+                    <Grid ColumnSpacing="0" >
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.9*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="padlockk.png" HorizontalOptions="End" VerticalOptions="Center" HeightRequest="18" WidthRequest="18"/>
+                        <Controls:XEntry x:Name="Entrypass" Text="{Binding Password}" Grid.Column="1" Placeholder="Enter Your Password"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                    </Grid>
+                </yummy:PancakeView>
+            </Grid>
+        </Grid>
+
+        <Label Grid.Row="3" Text="Forget Password ?" FontSize="16" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,10,0"/>
+
+
+
+        <Grid Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Start" ColumnSpacing="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button Text="Login"  BorderColor="Black" Command="{Binding LoginCommand}" BorderWidth="0.1" Background="#00ff00" CornerRadius="30" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" HeightRequest="50" WidthRequest="350" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.65*"/>
+                        <ColumnDefinition Width="0.35*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Don't have an acccount?" FontSize="15" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"/>
+                    <Label Text="Register" FontAttributes="Bold" FontSize="16" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Margin="0,0,5,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

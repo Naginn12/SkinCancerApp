@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:Controls="clr-namespace:SkinCancerApp"
+             x:Class="SkinCancerApp.Views.Register.RegisterPage.RegisterPage" NavigationPage.HasNavigationBar="false" Background="#ffffff">
+
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="id.png" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="120" WidthRequest="120"/>
+
+        <Label Grid.Row="1" Text="Create New Account" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" FontSize="20"/>
+
+        <Grid Grid.Row="2" Margin="0,25,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="NAME" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"  FontAttributes="Bold" FontSize="16"/>
+            <yummy:PancakeView BackgroundColor="#f5f5f0" Grid.Row="1"  HeightRequest="45" WidthRequest="200" CornerRadius="20">
+                <Controls:XEntry x:Name="EntryName" Placeholder="Your Name" Text="{Binding Name}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="5,0,0,0"/>
+            </yummy:PancakeView>
+
+            <Label Grid.Row="2"  Text="EMAIL" HorizontalOptions="StartAndExpand"  FontSize="16" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+            <yummy:PancakeView BackgroundColor="#f5f5f0"  Grid.Row="3"    HeightRequest="45" WidthRequest="200" CornerRadius="20">
+                <Controls:XEntry x:Name="EntryEmail"  Text="{Binding Email}" Placeholder="Your Email"   HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" />
+            </yummy:PancakeView>
+
+            <Label Grid.Row="4"  Text="CONTACT NO."  FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+            <yummy:PancakeView BackgroundColor="#f5f5f0"  Grid.Row="5"   HeightRequest="45" WidthRequest="200" CornerRadius="20">
+                <Controls:XEntry x:Name="EntryContact"  Text="{Binding Contactno}" Placeholder="Your Contact no."   HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="5,0,0,0"/>
+            </yummy:PancakeView>
+
+            <Label Grid.Row="6"  Text="PASSWORD" HorizontalOptions="StartAndExpand"  FontSize="16" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+            <yummy:PancakeView BackgroundColor="#f5f5f0"  Grid.Row="7"   HeightRequest="45" WidthRequest="200" CornerRadius="20">
+                <Controls:XEntry  x:Name="password"  Text="{Binding Password}" IsPassword="True" Placeholder="Your Password"   HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="5,0,0,0">
+                    <!--<Controls:XEntry.Behaviors>
+                        <local:RequiredValidatorBehavior x:Name="passwordValidator"/>
+                    </Controls:XEntry.Behaviors>-->
+                </Controls:XEntry>
+            </yummy:PancakeView>
+
+            <!--<Label Grid.Row="8" x:Name="confirmPassword" Text="CONFIRM  PASSWORD"  FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold"/>
+            <yummy:PancakeView BackgroundColor="#f5f5f0"  Grid.Row="9"   HeightRequest="45" WidthRequest="200" CornerRadius="20">
+                <Controls:XEntry IsPassword="True" Placeholder="Re-Enter password"   HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="5,0,0,0">
+                    <Controls:XEntry.Behaviors>
+                        <local:ConfirmPasswordBehavior x:Name="confirmPasswordBehavior" CompareToEntry="{Binding Source={x:Reference password}}" />
+                    </Controls:XEntry.Behaviors>
+                </Controls:XEntry>
+            </yummy:PancakeView>-->
+
+
+            <Grid Grid.Row="8" Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Button  Text="Register"  BorderColor="Black" Command="{Binding RegisterCommand}"  BorderWidth="0.1" Background="#00ff00" CornerRadius="20" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" HeightRequest="45" WidthRequest="400" />
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.65*"/>
+                        <ColumnDefinition Width="0.35*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Already have an account?" FontSize="14"  HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"/>
+                    <Label Text="Login" FontAttributes="Bold" FontSize="16" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Margin="0,0,5,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SkinCancerApp.Dashboard.DashboardPage.DashboardPage"  NavigationPage.HasNavigationBar="false" Background="#ffffff">
+
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image  Source="{Binding Myphoto}"  Grid.Row="0" HeightRequest="250" WidthRequest="250"/>
+
+        <Button Grid.Row="1" BackgroundColor="Black" CornerRadius="10" WidthRequest="200" TextColor="White" Text="Take Photo" x:Name="takepic" Command="{Binding TakePhotoCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Button Grid.Row="2" BackgroundColor="Black" CornerRadius="10" WidthRequest="200" TextColor="White" Text="Uplaod Photo" x:Name="uplaodpic" Command="{Binding UploadPhotoCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" TextColor="Black" x:Name="Rslt1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Row="1" TextColor="Black" x:Name="Rslt2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>
