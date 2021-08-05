@@ -12,8 +12,6 @@
 
   <ItemGroup>
     <PackageReference Include="FirebaseDatabase.net" Version="4.0.6" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training" Version="2.0.0" />
@@ -36,5 +34,11 @@
     <EmbeddedResource Update="Views\Register\RegisterPage\RegisterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ViewModel\DashboardPage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\DashboardPage\" />
   </ItemGroup>
 </Project>

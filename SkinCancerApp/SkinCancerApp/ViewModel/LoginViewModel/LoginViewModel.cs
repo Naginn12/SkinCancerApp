@@ -48,7 +48,7 @@ namespace SkinCancerApp.ViewModel.LoginViewModel
             if (response != null)
             {
 
-                await Navigation.PushAsync(new DashboardPage());
+                App.Current.MainPage = new MyDashboardTabbedPage();
 
             }
             else

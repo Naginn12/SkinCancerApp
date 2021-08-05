@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using SkinCancerApp.Model.ImageModel;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,60 @@ namespace SkinCancerApp.ViewModel.ImageIdentifierViewModel
                 OnPropertyChanged();
             }
         }
+        private double nonSkinCancerPercentage;
+        public double NonSkinCancerPercentage
+        {
+            get { return nonSkinCancerPercentage; }
+            set
+            {
+                nonSkinCancerPercentage = value;
+                OnPropertyChanged();
+            }
+        }
+        private double skinCancerPercentage;
+        public double SkinCancerPercentage
+        {
+            get { return skinCancerPercentage; }
+            set
+            {
+                skinCancerPercentage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool predectionBoardVisibility =false;
+        public bool PredectionBoardVisibility
+        {
+            get { return predectionBoardVisibility; }
+            set
+            {
+                predectionBoardVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isDangeredSkinFrameVisible = false;
+        public bool IsDangeredSkinFrameVisible
+        {
+            get { return isDangeredSkinFrameVisible; }
+            set
+            {
+                isDangeredSkinFrameVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isNormalSkinFrameVisible = false;
+        public bool IsNormalSkinFrameVisible
+        {
+            get { return isNormalSkinFrameVisible; }
+            set
+            {
+                isNormalSkinFrameVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
+
 
         //--- Computer Vision API's
         //static string subscriptionKey = "ddbdae8a57624a92b5606d3a80fac0da";
@@ -41,6 +97,10 @@ namespace SkinCancerApp.ViewModel.ImageIdentifierViewModel
 
         public ICommand TakePhotoCommand { get; }
         public ICommand UploadPhotoCommand { get; }
+
+
+
+
 
         public ImageIdentifierViewModel()
         {
@@ -72,7 +132,7 @@ namespace SkinCancerApp.ViewModel.ImageIdentifierViewModel
         }
         string PhotoPath;
 
-        private async Task LoadPhotoAsync(FileResult photo)
+        public async Task LoadPhotoAsync(FileResult photo)
         {
 
             // canceled
@@ -87,9 +147,11 @@ namespace SkinCancerApp.ViewModel.ImageIdentifierViewModel
             //using (var newStream = File.OpenWrite(newFile))
             //    await stream.CopyToAsync(newStream);
 
-
+            Myphoto = " ";
+            await Task.Delay(1000);
             PhotoPath = photo.FullPath;
             Myphoto = PhotoPath;
+
 
 
 
@@ -120,62 +182,107 @@ namespace SkinCancerApp.ViewModel.ImageIdentifierViewModel
 
             MakePredictionRequest(PhotoPath);
 
-
-
         }
 
 
 
-        private async Task TakeImage()
+        public async Task TakeImage()
         {
-            var result = await MediaPicker.CapturePhotoAsync();
-            await TakePhotoAsync(result);
-
-        }
-
-        private async Task TakePhotoAsync(FileResult result)
-        {
-            if (result == null)
+            //var result = await MediaPicker.CapturePhotoAsync();
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
             {
-                PhotoPath = null;
-                return;
-            }
-            PhotoPath = result.FullPath;
+                Directory = "Sample",
+                Name = "test.jpg",
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small
+            });
+            await TakePhotoAsync(file);
+
+        }
+
+        public async Task TakePhotoAsync(MediaFile result)
+        {
+            //if (result == null)
+            //{
+            //    PhotoPath = null;
+            //    return;
+            //}
+            Myphoto = " ";
+            await Task.Delay(1000);
+
+            PhotoPath = result.Path;
             Myphoto = PhotoPath;
 
             MakePredictionRequest(PhotoPath);
         }
+     
 
-        public static async Task MakePredictionRequest(string imageFilePath)
+
+
+        public  async Task MakePredictionRequest(string imageFilePath)
         {
-            var client = new HttpClient();
-
-            // Request headers - replace this example key with your valid Prediction-Key.
-            client.DefaultRequestHeaders.Add("Prediction-Key", predictionKey);
-
-            // Prediction URL - replace this example URL with your valid Prediction URL.
-            string url = predictionEndpoint;
-
-            HttpResponseMessage response;
-
-            // Request body. Try this sample with a locally stored image.
-            byte[] byteData = GetImageAsByteArray(imageFilePath);
-
-            using (var content = new ByteArrayContent(byteData))
+            try
             {
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                response = await client.PostAsync(url, content);
+                var client = new HttpClient();
 
-                var outputcontent = await response.Content.ReadAsStringAsync();
+                // Request headers - replace this example key with your valid Prediction-Key.
+                client.DefaultRequestHeaders.Add("Prediction-Key", predictionKey);
 
-                var reponsecontent = JsonConvert.DeserializeObject<ImageResponseModel>(outputcontent);
+                // Prediction URL - replace this example URL with your valid Prediction URL.
+                string url = predictionEndpoint;
 
-                //Rslt1.Text = reponsecontent.Predictions[0].TagName.ToString() + reponsecontent.Predictions[0].Probability.ToString();
-                //Rslt2.Text = reponsecontent.Predictions[1].TagName.ToString() + reponsecontent.Predictions[1].Probability.ToString();
+                HttpResponseMessage response;
 
+                // Request body. Try this sample with a locally stored image.
+                byte[] byteData = GetImageAsByteArray(imageFilePath);
+
+                using (var content = new ByteArrayContent(byteData))
+                {
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    response = await client.PostAsync(url, content);
+
+                    var outputcontent = await response.Content.ReadAsStringAsync();
+
+                    var reponsecontent = JsonConvert.DeserializeObject<ImageResponseModel>(outputcontent);
+
+                    //Rslt1.Text = reponsecontent.Predictions[0].TagName.ToString() + reponsecontent.Predictions[0].Probability.ToString();
+                    //Rslt2.Text = reponsecontent.Predictions[1].TagName.ToString() + reponsecontent.Predictions[1].Probability.ToString();
+                    var skincancerval = reponsecontent.Predictions[0].Probability;
+                    var nonskincancerval = reponsecontent.Predictions[1].Probability;
+                    SkinCancerPercentage = skincancerval;
+                    NonSkinCancerPercentage = nonskincancerval;
+
+                    PredectionBoardVisibility = true;
+
+                    //Your Logic Lies here :
+
+                    // if double <= 30 then let the user know that user is safe contact doctor for further medical assistance
+
+                    if (SkinCancerPercentage <= 30)
+                    {
+                        PredectionBoardVisibility = true;
+                        IsDangeredSkinFrameVisible = false;
+                        IsNormalSkinFrameVisible = true;
+
+
+                    }
+                    else
+                    {
+                        //or show the frame which has told the user that skin cancer detected.. 
+                        PredectionBoardVisibility = true;
+                        IsDangeredSkinFrameVisible = false;
+                        IsNormalSkinFrameVisible = true;
+
+                    }
+                }
             }
+            catch (Exception ex)
+            {
 
-
+                PredectionBoardVisibility = false;
+                IsDangeredSkinFrameVisible = false;
+                IsNormalSkinFrameVisible = false;
+                await App.Current.MainPage.DisplayAlert("Alert",ex.Message,"Ok");
+            }
         }
 
         private static byte[] GetImageAsByteArray(string imageFilePath)
